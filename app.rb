@@ -26,6 +26,7 @@ get '/save' do
   list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
   pp list
   list=list.sort! {|a,b|
+  list=list.reverse
     pp "A;",a,b
     a["value"]<=>b["value"]}[0..9]
   headers 'Content-Type'=>'application/json'
