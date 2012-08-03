@@ -25,7 +25,7 @@ get '/save' do
   pp "READ:",list,getConfig
   list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
   pp list
-  list=list.sort {|a,b|
+  list=list.sort! {|a,b|
     pp "A;",a,b
     a["value"]<=>b["value"]}[0..9]
   headers 'Content-Type'=>'application/json'
