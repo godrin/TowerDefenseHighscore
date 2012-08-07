@@ -20,15 +20,17 @@ end
 get '/save' do
   config=getConfig
   list=JSON.parse(config.data)
-  list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
-  list=list.sort {|a,b|
-    a["value"]<=>b["value"]}.reverse[0..9]
-  headers 'Content-Type'=>'application/json'
+  if params["score"]=~/^[1-9][0-9]*$/ and params["name"]=~/[a-zA-Z0-9_]*/
+    list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
+    list=list.sort {|a,b|
+      a["value"]<=>b["value"]}.reverse[0..9]
+  end
+  content_type :json
   json=list.to_json
   config.update!(:data=>json)
   json
 end
 get '/' do
-  headers 'Content-Type'=>'application/json'
-  getConfig.data.to_json
+  content_type :json
+  getConfig.data
 end
