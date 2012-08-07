@@ -11,6 +11,7 @@ class HighscoreList
   property :data,String
 end
 
+DataMapper.finalize
 
 DataMapper.auto_migrate!
 
@@ -25,18 +26,18 @@ get '/save' do
   pp "READ:",list,getConfig
   list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
   pp list
-  list=list.sort! {|a,b|
-  list=list.reverse
+  list.sort! {|a,b|
     pp "A;",a,b
     a["value"]<=>b["value"]}[0..9]
   headers 'Content-Type'=>'application/json'
   c=getConfig
   c.data=list.to_json
   pp "DATA",c
-  c.save
+  c.save!
   list.to_json
 end
 get '/' do
   headers 'Content-Type'=>'application/json'
-  getConfig.data.to_json
+  getConfig.data
+  pp getConfig.data
 end
