@@ -28,7 +28,8 @@ get '/save' do
   pp list
   list.sort! {|a,b|
     pp "A;",a,b
-    a["value"]<=>b["value"]}[0..9]
+    a["value"]<=>b["value"]}[0...3]
+  list.reverse!
   headers 'Content-Type'=>'application/json'
   c=getConfig
   c.data=list.to_json
