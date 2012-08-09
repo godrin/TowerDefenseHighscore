@@ -34,3 +34,4 @@ get '/' do
   content_type :json
   getConfig.data
 end
+
