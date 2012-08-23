@@ -3,7 +3,7 @@ require 'pp'
 require 'json'
 require 'data_mapper'
 
-DataMapper.setup(:default, 'sqlite://'+File.expand_path('../highscore.db',__FILE__))
+DataMapper.setup(:default, (ENV["DATABASE_URL"]|| 'sqlite://'+File.expand_path('../highscore.db',__FILE__)))
 
 class HighscoreList
   include DataMapper::Resource
