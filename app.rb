@@ -24,10 +24,10 @@ get '/save' do
     list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
     list=list.sort {|a,b|
       a["value"]<=>b["value"]}.reverse[0..9]
-return "1"
   end
   content_type :json
   json=list.to_json
+return "2"
   config.update!(:data=>json)
   json
 end
