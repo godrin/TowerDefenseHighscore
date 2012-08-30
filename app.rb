@@ -8,7 +8,7 @@ DataMapper::Model.raise_on_save_failure=true
 class HighscoreList
   include DataMapper::Resource
   property :id, Serial  
-  property :data,String
+  property :data,Text
 end
 
 DataMapper.auto_upgrade!
@@ -27,15 +27,7 @@ get '/save' do
   end
   content_type :json
   json=list.to_json
-  #HighscoreList.transaction do |t|
-#    config.update(:data=>json)
- #config.data=json
-#pp config
-#config.save
-#   t.commit
- config.destroy
-  HighscoreList.create(:data=>json) 
-#end
+  config.update(:data=>json)
   json
 end
 get '/' do
