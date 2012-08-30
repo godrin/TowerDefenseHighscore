@@ -27,8 +27,7 @@ get '/save' do
   end
   content_type :json
   json=list.to_json
-return "2"
-  config.update!(:data=>json)
+#  config.update!(:data=>json)
   json
 end
 get '/' do
