@@ -18,8 +18,8 @@ def getConfig
 end
 
 get '/save' do
-  config=getConfig
-  list=JSON.parse(config.data)
+  hconfig=getConfig
+  list=JSON.parse(hconfig.data)
   if params["score"]=~/^[1-9][0-9]*$/ and params["name"]=~/[a-zA-Z0-9_]*/
     list<<{"value"=>params["score"].to_i,"name"=>params["name"]}
     list=list.sort {|a,b|
@@ -27,10 +27,12 @@ get '/save' do
   end
   content_type :json
   json=list.to_json
-#  config.update(:data=>json)
-  config.destroy
-  HighscoreList.create(:data=>json)
-
+#  hconfig.update(:data=>json)
+  
+#config.destroy
+#  HighscoreList.create(:data=>json)
+hconfig.data=json
+hconfig.save
   json
 end
 get '/' do
