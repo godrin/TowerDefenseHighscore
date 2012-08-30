@@ -4,7 +4,7 @@ require 'json'
 require 'data_mapper'
 
 DataMapper.setup(:default, (ENV["DATABASE_URL"]|| 'sqlite://'+File.expand_path('../highscore.db',__FILE__)))
-
+DataMapper::Model.raise_on_save_failure=true
 class HighscoreList
   include DataMapper::Resource
   property :id, Serial  
@@ -27,10 +27,15 @@ get '/save' do
   end
   content_type :json
   json=list.to_json
-  HighscoreList.transaction do |t|
-    config.update(:data=>json)
-    t.commit
-  end
+  #HighscoreList.transaction do |t|
+#    config.update(:data=>json)
+ #config.data=json
+#pp config
+#config.save
+#   t.commit
+ config.destroy
+  HighscoreList.create(:data=>json) 
+#end
   json
 end
 get '/' do
