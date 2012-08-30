@@ -27,7 +27,10 @@ get '/save' do
   end
   content_type :json
   json=list.to_json
-  config.update(:data=>json)
+#  config.update(:data=>json)
+  config.destroy
+  HighscoreList.create(:data=>json)
+
   json
 end
 get '/' do
